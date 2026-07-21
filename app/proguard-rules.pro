@@ -103,3 +103,13 @@
 -dontwarn androidx.window.sidecar.SidecarInterface
 -dontwarn androidx.window.sidecar.SidecarProvider
 -dontwarn androidx.window.sidecar.SidecarWindowLayoutInfo
+
+# org.yaml.snakeyaml's PropertyUtils/MethodProperty support an optional
+# java.beans.Introspector-based code path for JavaBean-style property
+# access. java.beans.* is a desktop-JDK-only package that doesn't exist
+# on Android, and the app never touches that path — snakeyaml just
+# references it defensively. R8 fails the build with "Missing class"
+# errors for it (java.beans.BeanInfo/FeatureDescriptor/Introspector/
+# IntrospectionException/PropertyDescriptor) unless told it's fine to
+# leave unresolved.
+-dontwarn java.beans.**
