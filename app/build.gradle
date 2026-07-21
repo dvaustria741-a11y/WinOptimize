@@ -51,7 +51,8 @@ task checkSubmodules {
 
     doFirst {
         def adrenotoolsDir = new File(submodulePath)
-        if (adrenotoolsDir.exists() && adrenotoolsDir.isDirectory() && (adrenotoolsDir.list()?.length ?: 0) == 0) {
+        def isPopulated = adrenotoolsDir.exists() && adrenotoolsDir.isDirectory() && (adrenotoolsDir.list()?.length ?: 0) > 0
+        if (!isPopulated) {
             throw new GradleException("Native submodules are missing! Please run 'git submodule update --init --recursive' in your terminal before building.")
         }
     }
