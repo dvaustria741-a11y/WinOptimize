@@ -36,6 +36,9 @@ jobs:
         with:
           gradle-version: wrapper
 
+      - name: Install Rust Android target
+        run: rustup target add aarch64-linux-android
+
       - name: Decode keystore
         if: ${{ env.KEYSTORE_BASE64 != '' }}
         env:
